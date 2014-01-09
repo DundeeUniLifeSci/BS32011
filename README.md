@@ -3,8 +3,8 @@
 ## Aims
 
     1 To develop the practical skills required to effectively implement bioinformatics workflows and data analysis. 
-	2 To develop understanding of how to work collaboratively on data analysis 
-	3 to understand provenance and sustainability in bioinformatics analysis
+    2 To develop understanding of how to work collaboratively on data analysis 
+    3 to understand provenance and sustainability in bioinformatics analysis
 	
 ## Structure
 
@@ -18,23 +18,23 @@ The second part is the practical exercise where you will put these skills into p
 
 ### Day 1
 
-    * [Setup and Introduction](setup.md)
-	* Using Unix  
-	* Python revision - variables
-	* Python methods
-	* Python classes.
+* [Setup and Introduction](/setup.md)
+* Using Unix  
+* Python revision - variables
+* Python methods
+* Python classes.
 	
 ### Day 2 
-    * Documentation and testing
-	* Data and code sharing with git
-	* Relatinal databases (MySQL)
-	* Python and relational databases
+* Documentation and testing
+* Data and code sharing with git
+* Relational databases (MySQL)
+* Python and relational databases
 
 ### Day 3
-    * HTML and CSS
-	* CGI forms
-	* Python and CGI
-	* Piecing it all together - Model, View, Controller
+* HTML and CSS
+* CGI forms
+* Python and CGI
+* Piecing it all together - Model, View, Controller
 	
 ## Part 2: Exercise
 

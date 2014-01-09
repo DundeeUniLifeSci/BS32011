@@ -8,13 +8,17 @@
 	
 ## Structure
 
-The practical will consist of two parts. The first part is a 3 day 'boot camp' where you will be introduced to the techniques and concepts that you will be using. This is a very rapid 'crash course' and should be supplemented with your own reading and practice. You will not be expected to know everything you need for part 2, but you will have been introduced to the concepts and know where to find out the details. The second part is an exercise where you will put these skills into practice in your own time. 7 full working days have been allocated for the second part, and you can complete this at your own schedule.
+The practical will consist of two parts. The first part is a 3 day overview where you will be introduced to the techniques and concepts that you will be using. This is a very rapid 'crash course' or 'bootcamp' and should be supplemented with your own reading and practice. The material was originally intended to take a class through 'en bloc' but scheduling prevents that so youwill have to work through it in your own pace. It should take you three working days to complete. I will be available all day Monday, Thursday and Friday to assist with any queries. You will not be expected to remember everything you need for part 2, but you will have been introduced to the concepts and know where to find out the details. 
+
+The second part is the practical exercise where you will put these skills into practice in your own time. 7 full working days have been allocated for the second part, and you can complete this at your own schedule.
+
+*This is a work in progress. The documentation on these pages will be updated periodically.*
 
 ## Part 1: Bootcamp
 
 ### Day 1
 
-    * Setup and Introduction
+    * [Setup and Introduction](setup.md)
 	* Using Unix  
 	* Python revision - variables
 	* Python methods

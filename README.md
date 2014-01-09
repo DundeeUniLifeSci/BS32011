@@ -18,7 +18,7 @@ The second part is the practical exercise where you will put these skills into p
 
 ### Day 1
 
-    * [Setup and Introduction](setup.md)
+    * [Setup and Introduction](./setup.md)
 	* Using Unix  
 	* Python revision - variables
 	* Python methods

@@ -19,11 +19,11 @@ The second part is the practical exercise where you will put these skills into p
 ### Day 1
 
 
-* [Setup and Introduction](/setup.md)
-* Using Unix  
-* Python revision - variables
-* Python methods
-* Python classes.
+* [Setup and Introduction](setup.md)
+* [Using Unix](shell/README.md)  
+* [Python revision - variables and files](python/python_files.md)
+* [Python methods](python/python_functions.md)
+* [Python classes](python/python_classes.md)
 
 ### Day 2 
 * Documentation and testing

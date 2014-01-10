@@ -161,13 +161,14 @@ We can also calculate over groups:
 
 ### Joining two or more tables
 
+[reference: http://dev.mysql.com/doc/refman/5.5/en/multiple-tables.html](http://dev.mysql.com/doc/refman/5.5/en/multiple-tables.html)
 First we need more tables. The file _expression.tab_ is a table of some expression data from an experiment on one of the organism. The file has several fields - the gene name, the expression value, and the experiment. We will create a new table that links to the existing sequence table, then load in the data.
 
 To link data we can specify a field in our new table that references a row in another table. This is known as a _FOREIGN KEY_. The target field must be _NOT NULL_ and _UNIQUE_. It can be a text field or an integer - I prefer to use integers as then we can use _AUTO_INCREMENT_ to create the index automatically. The field we will link to is _id_ in _sequence_.
 
     CREATE TABLE expression (
 	sequence integer not null,
-	FOREIGN KEY sequence REFERENCES sequence (id),
+	FOREIGN KEY (sequence) REFERENCES sequence (id),
 	-- this links this table to our sequence table.
 	expression INTEGER NOT NULL,
 	experiment VARCHAR(20) NOT NULL
@@ -175,8 +176,22 @@ To link data we can specify a field in our new table that references a row in an
 	
 There is a more complicated LOAD INFILE statement. This does a lookup to determine what the ID value should be. Don't worry about understanding the mechanics of this right now.
     
-#TODO
+	LOAD DATA LOCAL INFILE 'expression.txt' INTO TABLE expression ignore 1 lines (@acc,  experiment, expression,sequence) ;
+	
+Let's look at the most highly expressed genes:
 
+    SELECT max(expression) FROM expression;
+
+This tells us the maximum counts is a bit over 2 million. How many genes have expression greater than 1 million counts, what are their names and which experiment were they in?
+
+    SELECT accession, expression, experiment FROM sequence INNER JOIN expression ON expression.sequence=sequence.id WHERE expression>1000000;
+	
+The key things here are the _table_ INNER JOIN _table2_ ON _table1.field1_ = _table2.field2_. This creates a super table with the columns from tables 1 and 2 filled in appropriately so if field1 is the reference to a foreign key in field2, the values from that row are put in place. 
+
+Many tables can be joined together with chained _t1_ INNER JOIN _t2_ ON _t1.f1_ = _t2.f2_ INNER JOIN _t3_ on _t3.f3_ = _t1.f1_ and so on. When selectign fields, if the field name is not unique across all tables then you must specify the table to remove ambiguity.
+ 
+INNER JOIN is an intersection - only the fields with a matching entry in both tables will be selected. There are three other sorts of joins (LEFT OUTER, RIGHT OUTER and FULL OUTER) - what they select is left as an exercise for the student in reading manuals. 	
+	
 ### Deleting data
 
 We can delete individual rows with the _DELETE_ statement. ___CAUTION: This is dangerous if misapplied___

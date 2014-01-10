@@ -22,12 +22,12 @@ The second part is the practical exercise where you will put these skills into p
 * [Setup and Introduction](setup.md)
 * [Using Unix](shell/README.md)  
 * [Python revision - variables and files](python/python_files.md)
-* [Python regular expressions](python/python_regex.md)
+* [Python regular expressions](python/python_regexp.md)
 * [Python methods](python/python_functions.md)
 * [Python classes](python/python_classes.md)
 
 ### Day 2 
-* Documentation and testing
+* [Documentation](python/python_documentation.md) and [testing](python/python_testing.md)
 * Data and code sharing with git
 * [Relational databases (MySQL)](sql/sql_intro.md)
 * Python and relational databases

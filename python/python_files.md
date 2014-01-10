@@ -3,7 +3,7 @@
 In Python, as in the physical world, we have to open a file before we can read what's inside it. The Python function that carries out the job of opening a file is very sensibly called __open__. It takes one argument – a string which contains the name of the file – and returns a *file object:*
 
 
->    my_file = open("dna.txt")
+    my_file = open("dna.txt")
 
 
 A _file object_ is a new type of data. With strings and numbers it was easy to understand what they represented – a single bit of text, or a single number. A file object, in contrast, represents something a bit less tangible – it represents a file on your computer's hard drive.
@@ -11,18 +11,18 @@ A _file object_ is a new type of data. With strings and numbers it was easy to u
 The first thing we need to be able to do is to read the contents of the file. The file type has a __read__ method which does this. It doesn't take any arguments, and the return value is a string, which we can store in a variable. Once we've read the file contents into a variable, we can treat them just like any other string – for example, we can print them:
 
 
->    my_file = open("dna.txt")
->    file_contents = my_file.read()
->    print(file_contents)
+    my_file = open("dna.txt")
+    file_contents = my_file.read()
+    print(file_contents)
 
 
 ## Files, contents and file names
 When learning to work with files it's very easy to get confused between a <i>file object</i>, a <i>file name</i>, and the <i>contents </i>of a file. Take a look at the following bit of code:
 
 
->    my_file_name = "dna.txt"
->    my_file = open(my_file_name)
->    my_file_contents = my_file.read()
+    my_file_name = "dna.txt"
+    my_file = open(my_file_name)
+    my_file_contents = my_file.read()
 
 
 What's going on here? On line 1, we store the string <i>dna</i><i>.txt</i> in the variable <code>my_file_name</code>. On line 2, we use the variable <code>my_file_name </code>as the argument to the <code>open </code>function, and store the resulting file object in the variable <code>my_file</code>. On line 3, we call the <code>read </code>method on the variable <code>my_file</code>, and store the resulting string in the variable <code>my_file_contents</code>.
@@ -32,9 +32,9 @@ The important thing to understand about this code is that there are three separa
 Remember that variable names are arbitrary – the computer doesn't care what you call your variables. So this piece of code is exactly the same as the previous example:
 
 
->    apple = "dna.txt"
->    banana = open(apple)
->    grape = banana.read()
+    apple = "dna.txt"
+    banana = open(apple)
+    grape = banana.read()
 
 
 except it is harder to read! In contrast, the file name (<i>dna</i><i>.txt</i>) is <b>not</b> arbitrary – it must correspond to the name of a file on the hard drive of your computer.
@@ -42,28 +42,28 @@ except it is harder to read! In contrast, the file name (<i>dna</i><i>.txt</i>) 
 A common error is to try to use the <code>read</code> method on the wrong thing. Recall that <code>read</code> is a method that only works on file objects. If we try to use the <code>read</code> method on the file name:
 
 
->    my_file_name = "dna.txt"
->    my_contents = my_file_name.read()
+    my_file_name = "dna.txt"
+    my_contents = my_file_name.read()
 
 
 we'll get an <code>AttributeError</code> – Python will complain that strings don't have a <code>read</code> method:
 
 
->    AttributeError: 'str' object has no attribute 'read'
+    AttributeError: 'str' object has no attribute 'read'
 
 
 Another common error is to use the <i>file object </i>when we meant to use the<i> file contents</i>. If we try to print the file object:
 
 
->    my_file_name = "dna.txt"
->    my_file = open(my_file_name)
->    print(my_file)
+    my_file_name = "dna.txt"
+    my_file = open(my_file_name)
+    print(my_file)
 
 
 we won't get an error, but we'll get an odd-looking line of output:
 
 
->    <open file 'dna.txt', mode 'r' at 0x7fc5ff7784b0>
+    <open file 'dna.txt', mode 'r' at 0x7fc5ff7784b0>
 
 
 We won't discuss the meaning of this line now: just remember that if you try to print the contents of a file but instead you get some output that looks like the above, you have almost definitely printed the file object rather than the file contents.
@@ -74,52 +74,52 @@ Let's take a look at the output we get when we try to print some information fro
 We're going to write a simple program to read the DNA sequence from the file and print it out along with its length. Putting together the file functions and methods from this session, and the printing / string manipulation stuff from the preperation chapter, we get the following code:
 
 
->    # open the file
->    my_file = open("dna.txt")
->    # read the contents
->    my_dna = my_file.read()
->    # calculate the length
->    dna_length = len(my_dna)
->    # print the output
->    print("sequence is " + my_dna +  " and length is " + str(dna_length))
+    # open the file
+    my_file = open("dna.txt")
+    # read the contents
+    my_dna = my_file.read()
+    # calculate the length
+    dna_length = len(my_dna)
+    # print the output
+    print("sequence is " + my_dna +  " and length is " + str(dna_length))
 
 
 When we look at the output, we can see that the program is working almost perfectly – but there is something strange: the output has been split over two lines:
 
 
->    sequence is ACTGTACGTGCACTGATC
->     and length is 19
+    sequence is ACTGTACGTGCACTGATC
+     and length is 19
 
 
 The explanation is simple once you know it: Python has included the new line character at the end of the <i>dna.txt</i> file as part of the contents. In other words, the variable <code>my_dna</code> has a new line character at the end of it. If we could view the <code>my_dna </code>variable directly (In fact, we can do this – there's a function called <code>repr</code> that returns a representation of a variable) , we would see that it looks like this:
 
 
->    'ACTGTACGTGCACTGATC\n'
+    'ACTGTACGTGCACTGATC\n'
 
 
 The solution is also simple. Because this is such a common problem, strings have a method for removing new lines from the end of them. The method is called <code>rstrip</code>, and it takes one string argument which is the character that you want to remove. In this case, we want to remove the newline character (<code>\n</code>). Here's a modified version of the code – note that the argument to <code>rstrip</code> is itself a string so needs to be enclosed in quotes:
 
 
->    my_file = open("dna.txt")
->    my_file_contents = my_file.read()
->    # remove the newline from the end of the file contents
->    my_dna = my_file_contents.rstrip("\n")
->    dna_length = len(my_dna)
->    print("sequence is " + my_dna +  " and length is " + str(dna_length))
+    my_file = open("dna.txt")
+    my_file_contents = my_file.read()
+    # remove the newline from the end of the file contents
+    my_dna = my_file_contents.rstrip("\n")
+    dna_length = len(my_dna)
+    print("sequence is " + my_dna +  " and length is " + str(dna_length))
 
 
 and now the output looks just as we expected:
 
->    sequence is ACTGTACGTGCACTGATC and length is 18
+    sequence is ACTGTACGTGCACTGATC and length is 18
 
 In the code above, we first read the file contents and then removed the newline, in two separate steps:
 
->    my_file_contents = my_file.read()
->    my_dna = my_file_contents.rstrip("\n")
+    my_file_contents = my_file.read()
+    my_dna = my_file_contents.rstrip("\n")
 
 but it's more common to read the contents and remove the newline all in one go, like this:
 
->    my_dna = my_file.read().rstrip("\n")
+    my_dna = my_file.read().rstrip("\n")
 
 This is a bit tricky to read at first as we are using two different methods (<code>read</code> and <code>rstrip</code>) in the same statement. The key is to read it from left to right – we take the <code>my_file</code> variable and use the <code>read</code> method on it, then we take the output of that method (which we know is a string) and use the <code>rstrip</code> method on it. The result of the <code>rstrip</code> method is then stored in the <code>my_dna</code> variable.
 
@@ -128,12 +128,12 @@ If you find it difficult write the whole thing as one statement like this, just 
 ## Missing files
 What happens if we try to read a file that doesn't exist?
 
->    my_file = open("nonexistent.txt")
+    my_file = open("nonexistent.txt")
 
 
 We get a new type of error that we've not seen before:
 
->    IOError: [Errno 2] No such file or directory: 'nonexistent.txt'
+    IOError: [Errno 2] No such file or directory: 'nonexistent.txt'
 
 
 ## Writing text to files
@@ -155,8 +155,8 @@ Once we've opened a file for writing, we can use the file <code>write</code> met
 Here's how we use <code>open</code> with a second argument to open a file and write a single line of text to it:
 
 
->    my_file = open("out.txt", "w")
->    my_file.write("Hello world")
+    my_file = open("out.txt", "w")
+    my_file.write("Hello world")
 
 
 Because the output is being written to the file in this example, you won't see any output on the screen if you run it. To check that the code has worked, you'll have to run it, then open up the file <i>out.txt</i> in your text editor and check that its contents are what you expect (.txt is the standard file name extension for a plain text file. Later when we generate output files with a particular format, we'll use different file name extensions.) .
@@ -164,26 +164,26 @@ Because the output is being written to the file in this example, you won't see a
 Remember that with <code>write</code>, just like with <code>print</code>, we can use <b>any</b> string as the argument. This also means that we can use any method or function that <b>returns</b> a string. The following are all perfectly OK:
 
 
->    # write "abcdef"
->    my_file.write("abc" + "def")
->    # write "8"
->    my_file.write(str(len('AGTGCTAG')))
->    # write "TTGC"
->    my_file.write("ATGC".replace('A', 'T'))
->    # write "atgc"
->    my_file.write("ATGC".lower())
->    # write contents of my_variable
->    my_file.write(my_variable)
+    # write "abcdef"
+    my_file.write("abc" + "def")
+    # write "8"
+    my_file.write(str(len('AGTGCTAG')))
+    # write "TTGC"
+    my_file.write("ATGC".replace('A', 'T'))
+    # write "atgc"
+    my_file.write("ATGC".lower())
+    # write contents of my_variable
+    my_file.write(my_variable)
 
 
 ## Closing files
 There's one more important file method to look at before we finish this chapter – <code>close</code>. Unsurprisingly, this is the opposite of <code>open</code> (but note that it's a <i>method</i>, whereas <code>open</code> is a <i>function</i>). We should call <code>close</code> after we're done reading or writing to a file – we won't go into the details here, but it's a good habit to get into as it avoids some types of bugs that can be tricky to track down. <code>close</code> is an unusual method as it takes no arguments (so it's called with an empty pair of parentheses) and doesn't return any useful value:
 
 
->    my_file = open("out.txt", "w")
->    my_file.write("Hello world")
->    # remember to close the file
->    my_file.close()
+    my_file = open("out.txt", "w")
+    my_file.write("Hello world")
+    # remember to close the file
+    my_file.close()
 
 ## Paths and folders
 So far, we have only dealt with opening files in the same folder that we are running our program. What if we want to open a file from a different part of the file system?
@@ -191,17 +191,17 @@ So far, we have only dealt with opening files in the same folder that we are run
 The <code>open</code> function is quite happy to deal with files from anywhere on your computer, as long as you give the full path (i.e. the sequence of folder names that tells you the location of the file). Just give a <i>file path</i> as the argument rather than a <i>file name</i>. The format of the file path looks different depending on your operating system. If you're on Linux, it will look like this:
 
 
->    my_file = open("/home/martin/myfolder/myfile.txt")
+    my_file = open("/home/martin/myfolder/myfile.txt")
 
 
 if you're on Windows, like this (The extra r character before the string is necessary to prevent Python from trying to interpret the backslash in the file path) :
 
 
->    my_file = open(r"c:\windows\Desktop\myfolder\myfile.txt")
+    my_file = open(r"c:\windows\Desktop\myfolder\myfile.txt")
 
 and if you're on a Mac, like this:
 
->    my_file = open("/Users/martin/Desktop/myfolder/myfile.txt")
+    my_file = open("/Users/martin/Desktop/myfolder/myfile.txt")
 
 
 ## Exercises
@@ -212,19 +212,19 @@ Look in the <i>data/martin_python</i> folder for a file called <i>genomic_dna
 FASTA file format is a commonly-used DNA and protein sequence file format. A single sequence in FASTA format looks like this:
 
 
->    >sequence_name
->    ATCGACTGATCGATCGTACGAT
+    >sequence_name
+    ATCGACTGATCGATCGTACGAT
 
 
 Where sequence_name is a header that describes the sequence (the greater-than symbol indicates the start of the header line). Often, the header contains an accession number that relates to the record for the sequence in a public sequence database. A single FASTA file can contain multiple sequences, like this:
 
 
->    >sequence_one
->    ATCGATCGATCGATCGAT
->    >sequence_two
->    ACTAGCTAGCTAGCATCG
->    >sequence_three
->    ACTGCATCGATCGTACCT
+    >sequence_one
+    ATCGATCGATCGATCGAT
+    >sequence_two
+    ACTAGCTAGCTAGCATCG
+    >sequence_three
+    ACTGCATCGATCGTACCT
 
 
 Write a program that will create a FASTA file for the following three sequences – make sure that all sequences are in upper case and only contain the bases A, T, G and C.

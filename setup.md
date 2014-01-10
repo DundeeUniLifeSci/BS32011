@@ -12,7 +12,7 @@ PuTTY, XMing and WinSCP are freely available for installation on your own machin
 
 From a Mac/Linux you can log in via SSH from a terminal.
 
-> ssh username@ts-ug-dev.lifesci.dundee.ac.uk
+    ssh username@ts-ug-dev.lifesci.dundee.ac.uk
 
 Please note that the login is only available from the Lifesci or University of Dundee network.	
 	
@@ -21,11 +21,17 @@ Please note that the login is only available from the Lifesci or University of D
 From a campus PC or windows machine use WinSCP to connect, as per the 2nd year programming practical.
 From a command line, use the following:
 
-> scp user@ts-ug-dev.lifesci.dundee.ac.uk:path/to/remote/file localfile
+     scp user@ts-ug-dev.lifesci.dundee.ac.uk:path/to/remote/file localfile
 	
 You can swap the remote and local parts round to transfer in the other direction.
 
 A better way to keep work in sync is to use version control with Git. This is covered in the first part of the practical.
+
+## setting up your environment
+
+To get a copy of all the files and data needed for the first part of this practical run the following command from a terminal window:
+
+    git clone https://(to be completed) ##TODO
 
 ### MySQL username/password
 

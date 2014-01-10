@@ -7959,7 +7959,6 @@ iagB	N	483	40.79	AE014613_2859402_2859884 [CDS]	Salmonella enterica subsp. enter
 stpA	N	1632	43.63	AE014613_2859938_2861569 [CDS]	Salmonella enterica subsp. enterica serovar
 sicP	N	351	38.75	AE014613_2861556_2861906 [CDS]	Salmonella enterica subsp. enterica serovar
 t2782	N	261	39.46	AE014613_2861975_2862235 [CDS]	Salmonella enterica subsp. enterica serovar
-/note="doubtful	N	249	38.15	CDS found	within S. typhi pathogenicity AE014613_2862279_2862527
 sipF	N	2058	47.86	AE014613_2862546_2864603 [CDS]	Salmonella enterica subsp. enterica serovar
 sipA	N	1023	46.92	AE014613_2864622_2865644 [CDS]	Salmonella enterica subsp. enterica serovar
 sipD	N	1230	47.48	AE014613_2865714_2866943 [CDS]	Salmonella enterica subsp. enterica serovar
@@ -9438,7 +9437,6 @@ t4365	N	144	54.86	AE014613_4520376_4520519 [CDS]	Salmonella enterica subsp. ente
 t4366	N	327	55.96	AE014613_4520735_4521061 [CDS]	Salmonella enterica subsp. enterica serovar
 t4367	N	783	58.62	AE014613_4521199_4521981 [CDS]	Salmonella enterica subsp. enterica serovar
 t4368	N	213	41.78	AE014613_4522006_4522218 [CDS]	Salmonella enterica subsp. enterica serovar
-/note="corresponds	N	1284	43.38	to STY4679	from Accession AL513382: AE014613_4522962_4524245 [CDS]
 int	N	1260	56.67	AE014613_4524556_4525815 [CDS]	Salmonella enterica subsp. enterica serovar
 yjdC	N	576	51.39	AE014613_4526166_4526741 [CDS]	Salmonella enterica subsp. enterica serovar
 dsbD	N	1704	56.28	AE014613_4526778_4528481 [CDS]	Salmonella enterica subsp. enterica serovar

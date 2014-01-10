@@ -207,3 +207,15 @@ To delete a table or other object, use _DROP_
     DROP TABLE sequence;
 	
 Hopefully this will give an error as the table _sequence_ is referred to by the table _expression_. You can't DROP TABLE sequence until you have done DROP TABLE expression to remove the referring table.
+
+### Storing your configuration
+
+You cna save SQL commands in a text file and read them in from the command line, either in the mysql> terminal like
+
+    mysql> source 'filename';
+	
+or you can pipe SQL to the command line like:
+
+    cat filename | mysql -u username -p databasename
+	
+When setting up a configuration you may wish to include the appropriate DROP TABLE statements at the top to clear out the old configuration first.

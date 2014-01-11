@@ -1,7 +1,7 @@
 # Version Control and Git - crib sheet
 
 [Git](http://git-scm.com/)
-
+[Powerpoint on Git](git/VersionControl.ppt)
 ## Git command-line
 
     $ git --version
@@ -142,7 +142,7 @@ What we know about software development - code reviews should be about 60 minute
 
 Use wget to pull your photo from the web or find a suitable alternative (call it me.jpg or use whatever extension).
 
-    $ wget http://software-carpentry.org/img/bootcamps/2012-12-uta.png
+    $ wget http://software-carpentry.org/img/myrepos/2012-12-uta.png
     $ mv 2012-12-uta.png  authors.png
     $ cd ..
 
@@ -213,7 +213,7 @@ Make more changes.
 Top tip: tag significant "events" e.g. submitted papers, released versions.
 
 ### Branches
-
+[reference: http://pcottle.github.io/learnGitBranching/](http://pcottle.github.io/learnGitBranching/)
     $ git status data.md
 
 `master` is a branch name.
@@ -300,7 +300,7 @@ Git =/= GitHub
 GitHub:
 * [Log in](https://github.com).
 * Click on Create a new repo icon on top right, next to user name.
-* Enter Repository name: `bootcamp`.
+* Enter Repository name: `myrepo`.
 * Check Public option is selected.
 * Check Initialize this repository with a README is unselected.
 * Click Create Repository.
@@ -308,7 +308,7 @@ GitHub:
 BitBucket:
 * [Log in](https://bitbucket.com).
 * Click on Create  icon on top left, next to Bitbucket logo.
-* Enter Repository name: `bootcamp`.
+* Enter Repository name: `myrepo`.
 * Check private repository option is ticked.
 * Check repository type is `Git`.
 * Check Initialize this repository with a README is unselected.
@@ -316,12 +316,12 @@ BitBucket:
 
 Push `master` branch to GitHub:
 
-    $ git remote add origin https://github.com/USERNAME/bootcamp.git
+    $ git remote add origin https://github.com/USERNAME/myrepo.git
     $ git push -u origin master
 
 Push `master` branch to BitBucket:
 
-    $ git remote add origin https://USERNAME@bitbucket.org/USERNAME/bootcamp.git
+    $ git remote add origin https://USERNAME@bitbucket.org/USERNAME/myrepo.git
     $ git push -u origin --all
 
 `origin` is an alias for repository URL. `-u` sets local repository to track remote repository.
@@ -334,9 +334,9 @@ BitBucket, click Source tab and click Commits tab.
 
     $ cd ..
     $ rm -rf papers
-    $ git clone https://github.com/USERNAME/bootcamp.git
-    $ git clone https://USERNAME@bitbucket.org/USERNAME/bootcamp.git
-    $ cd bootcamp
+    $ git clone https://github.com/USERNAME/myrepo.git
+    $ git clone https://USERNAME@bitbucket.org/USERNAME/myrepo.git
+    $ cd myrepo
     $ git log
     $ ls -A
 
@@ -355,19 +355,19 @@ Always pull before push.
 
     $ cd ..
     $ ls
-    $ git clone https://github.com/USERNAME/bootcamp.git anotherbootcamp
-    $ git clone https://USERNAME@bitbucket.org/USERNAME/bootcamp.git anotherbootcamp
+    $ git clone https://github.com/USERNAME/myrepo.git anotherrepo
+    $ git clone https://USERNAME@bitbucket.org/USERNAME/myrepo.git anotherrepo
     $ ls
 
 Pretend clones are on separate machines. 3 repositories - one remote, 2 local on our 'separate machines'.
 
-    $ cd bootcamp
+    $ cd myrepo
     $ nano data.md
 
 Make changes, add, commit.
 
     $ git push
-    $ cd ../anotherbootcamp
+    $ cd ../anotherrepo
     $ git fetch
     $ git diff origin/master
 
@@ -384,7 +384,7 @@ pull = fetch + merge
 Make changes, add, commit.
 
     $ git push
-    $ cd ../bootcamp
+    $ cd ../myrepo
     $ git pull
     $ cat data.md
     $ git log
@@ -396,7 +396,7 @@ Make changes, add, commit.
 Make changes, add, commit.
 
     $ git push
-    $ cd ../anotherbootcamp
+    $ cd ../anotherrepo
 
 Make changes to same lines, add, commit.
 
@@ -445,8 +445,8 @@ Owner, on GitHub, click on the Settings tab, click on Collaborators, add partner
 Owner, on BitBucket, click Share link, add partner's BitBucket name.
 Both,
 
-    $ git clone https://github.com/OWNERUSERNAME/bootcamp.git
-    $ git clone https://USERNAME@bitbucket.org/USERNAME/bootcamp.git 
+    $ git clone https://github.com/OWNERUSERNAME/myrepo.git
+    $ git clone https://USERNAME@bitbucket.org/USERNAME/myrepo.git 
 
 Now:
 
@@ -482,13 +482,6 @@ Change, add, commit.
     $ git merge new_template
     $ git branch -D new_template
 
-## Push the Software Carpentry repository to BitBucket
-
-Create "swc" repository.
-
-    cd ~
-    cd boot-camps
-    git push -u http://bitbucket.org/USERNAME/swc.git 2013-11-14-exeter
 
 ## Summary
 

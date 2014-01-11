@@ -1,3 +1,27 @@
+## Running Python in the lab
+
+You can launch a python interpreter by giving the command 
+
+    python
+
+at a command prompt.
+
+Alternatively you can run a script with the command
+
+    python scriptname
+	
+or include the following command at the top of the file 
+
+    #!/usr/local/bin/python
+
+make the file executable with
+
+    chmod +x filename
+	
+and then you can run the file directly with
+
+    ./filename
+
 ###Using open to read a file
 
 In Python, as in the physical world, we have to open a file before we can read what's inside it. The Python function that carries out the job of opening a file is very sensibly called __open__. It takes one argument – a string which contains the name of the file – and returns a *file object:*
@@ -270,4 +294,30 @@ Write a program that will create a FASTA file for the following three sequences 
 
 ### Writing multiple FASTA files
 Use the data from the previous exercise, but instead of creating a single FASTA file, create three new FASTA files – one per sequence. The names of the FASTA files should be the same as the sequence header names, with the extension <i>.fasta</i>.
+
+## String formatting
+[reference: http://docs.python.org/2/library/stdtypes.html#string-formatting-operations](http://docs.python.org/2/library/stdtypes.html#string-formatting-operations)
+
+When we format a string it can be rather painful to put together a lot of " " + value + " " so python has built in support for formatting strings.
+
+The simplest version is 
+
+    print "%s"%"a"
+	
+%s is substituted with the string representation of the value given (here we used a literal string "a" but it could have been any variable).
+With more than one value the list is put in parentheses
+
+    print "%s %s"%("a", "b")
+	
+We can use a dictionary to supply the values but have to state the key in the format;
+
+	print "%(key1)s %(key2)s"%{'key1': "a", 'key2': "b"}
+
+%s is a very basic converter. For specific types we can be more explicit. 
+
+%d will convert signed integers, %e will give scientific notation etc. Read the format reference and see if you can achieve the following:
+
+* Format an integer of up to four digits with leading spaces so that the right hand digits are in the same place 
+* Format a floating point number in scientific notation with an upper case E to two decimal places
+* Express a decimal as a percentage
 

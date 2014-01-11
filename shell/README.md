@@ -1,3 +1,9 @@
+# Using the Unix Shell
+
+This is a series of notes on useful command line programs for controlling and interacting with the computer.
+Work through and ensure you understand what each command can do, and where to get help.
+
+
 # Shell - crib sheet
 
 * Even in a windows, Windows, world useful to know.

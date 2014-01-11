@@ -1,4 +1,6 @@
 <h2>Testing functions</h2>
+[reference: Assertions](https://wiki.python.org/moin/UsingAssertionsEffectively)
+[reference: Exceptions](http://docs.python.org/2/tutorial/errors.html)
 When writing code of any type, it's important to periodically check that your code does what you intend it to do. If you look back over the solutions to exercises from previous sessions, you can see that we generally test our code at each step by printing some output to the screen and checking that it looks OK. For example, in section 2 when we were first calculating AT content, we used a very short test sequence to verify that our code worked before running it on the real input.
 
 The reason we used a test sequence was that, because it was so short, we could easily work out the answer by eye and compare it to the answer given by our code. This idea – running code on a test input and comparing the result to an answer <b>that we know to be correct</b> (Think of it as similar to running a positive control in a wet-lab experiment) – is such a useful one that Python has a built-in tool for expressing it: <code>assert</code>. An assertion consists of the word assert, followed by a call to our function, then <b>two</b> equals signs, then the result that we expect.
@@ -65,8 +67,97 @@ A slightly more structured way to group tests is using Python's built-in testing
 
 We can add as many testing functions as we like, and when we run the script on the command line it will run all the functions one after another and print out a report. This is a nice approach because we can give the testing functions meaningful names, so that when one of them fails it's obvious what the incorrect behaviour is. 
     
-##Exercise
+###Exercise
 
 Look back at the code you've written for the exercises in the last session (writing functions). Write assertions to test each of the function calls that were specified in the exercise text, and verify that your answers pass the assertions. Can you think of any other tricky cases to test?
 
 
+## Exceptions
+
+Python has another way of handling errors which is to raise exceptions. These are useful in handling errors gracefully. It would be rather awkward if a program failed part way through an analysis where it had half completed and you had no way of tracking down the error.
+
+Try the following in a python shell
+
+    a = 5
+	b = '6'
+	c = 'seven'
+	a+b
+	int(a)+int(b)
+	int(c)
+	
+We can see that some of these commands raise errors. Lets put this into a simple program that will calculate the average of numbers in a file, one per line. Save this as numbercount.py
+
+    #!/usr/local/bin/python
+    fh=open('numbers.txt') # open our data file
+	total=0 # total of numbers read so far
+	count=0 # count of numbers read so far
+	for n in fh.readlines(): # iterate through the file one line at a time
+		total=total+int(n) # we read in a string so int() converts to a number
+		count=count+1
+	fh.close()
+	print "%s numbers read with a total of %s"%(count, total)
+	
+Now run the program
+
+    python numbercount.py
+	
+Errors occur. The file of numbers has been badly written and will take ages to go through by hand and sort out. Maybe we can get the program to do this with exception handling?
+
+Edit the program to the following:
+
+    #!/usr/local/bin/python
+    fh=open('numbers.txt') # open our data file
+	total=0 # total of numbers read so far
+	count=0 # count of numbers read so far
+	skipped=0 # number of bad data points
+	for n in fh.readlines(): # iterate through the file one line at a time
+		try:
+		    total=total+int(n) # we read in a string so int() converts to a number
+		    count=count+1
+		except:
+		    print "Bad data %s - skipped"%n.rstrip() #take off the newline at the end of the string.
+			skipped=skipped+1
+	fh.close()
+	print "%s numbers read with a total of %s. %s skipped."%(count, total, skipped)
+
+
+We can get the message that python gives with the exception by using
+
+    try:
+		... code to test
+	except Exception, e:
+	    print 'the exception was %s'%e
+	
+The value of the exception is in the object e
+
+We can handle different exceptions with different blocks
+
+    try:
+	    ... code to test
+	except ValueError, ve:
+	    ... handle value errors
+	except AssertionError, ae:
+	    ... handle assert errors
+	except Exception, e:
+	    ... catch any unhandled exceptions
+		
+And we can raise our own exceptions:
+
+    raise Exception('Error message')
+	
+If you want specific errors then you can create your own by subclassing Exception
+
+    class BadProgrammingError(Exception):
+	    '''An Exception raised when a silly mistake has been made'''
+		
+and then use it as:
+	
+	raise BadProgrammingError('message') 
+	
+and
+
+	try:
+		... stuff
+	except BadProgrammingError, bpe:
+	    ... handle error
+		

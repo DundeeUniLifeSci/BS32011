@@ -27,7 +27,7 @@ You can swap the remote and local parts round to transfer in the other direction
 
 A better way to keep work in sync is to use version control with Git. This is covered in the first part of the practical.
 
-## setting up your environment
+## Setting up your environment
 
 To get a copy of all the files and data needed for the first part of this practical run the following command from a terminal window:
 

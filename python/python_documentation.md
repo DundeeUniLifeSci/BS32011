@@ -25,9 +25,9 @@ Comments can help with this problem by giving you hints about the purpose of cod
 
 You have already seen documentation using python "help()". For example, lets look at the documentation for the “re” module that we have been using for regular expressions.
 
-    $ ipython
-    $ import re
-    $ help(re)
+    $ python
+    >>> import re
+    >>> help(re)
 
     Help on module re:
 
@@ -55,11 +55,11 @@ However, if we ask for the help for one of our functions:
 
 Not great... It is very important when programming in any language that we provide full documentation for all of the functions and modules. In python, this is achieved by adding documentation strings to each part of the script. These are strings that are placed at the beginning of the function or module.
 
-    $ def documentedFunction(a):
-    $     """Here is the documentation string for this function"""
-    $     return a
-    $
-    $ help(documentedFunction)
+    def documentedFunction(a):
+        """Here is the documentation string for this function"""
+        return a
+    
+    help(documentedFunction)
     
     Help on function documentedFunction in module __main__:
     

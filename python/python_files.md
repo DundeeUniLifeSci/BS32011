@@ -24,6 +24,8 @@ and then you can run the file directly with
 
 ###Using open to read a file
 
+First navigate to the *BS32011/python* directory with the *cd* command.
+
 In Python, as in the physical world, we have to open a file before we can read what's inside it. The Python function that carries out the job of opening a file is very sensibly called __open__. It takes one argument – a string which contains the name of the file – and returns a *file object:*
 
 

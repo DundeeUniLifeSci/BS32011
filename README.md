@@ -35,7 +35,7 @@ The second part is the practical exercise where you will put these skills into p
 ### Day 3
 * [HTML](cgi/html.md) and [CSS](cgi/css.md)
 * [CGI forms](cgi/forms.md)
-* Python and CGI
+* [Python and CGI](cgi/python_cgi.md)
 * Piecing it all together - Model, View, Controller
 	
 ## Part 2: Exercise

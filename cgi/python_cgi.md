@@ -51,6 +51,69 @@ information about the type of information being sent/returned
 2. Create a new CGI script that can handle your restriction enzyme data. It should calculate and return the length 
 of the sequence and a list of all the sites that match the restriction pattern. 
 
+### Sanity checking
+
+Now we can readily take input from a user and do things to it. Consider the following form and CGI script (I've skipped some of the housekeeping bits for brevity):
+
+    <form action=searchdb.py method=POST>
+    <table><tr>
+        <td>enter an SQL query</td>
+        <td><input type=text name=query /></td>
+    </tr></table>
+    </form>
+    
+    
+    form=cgi.FieldStorage() # get the form data from the cgi object
+    cursor.execute(form['query']) # run the query on the database
+    
+Why is this a bad idea? [What kind of queries could be run?](http://xkcd.com/327/) Even if we restrict the user accessing the database to SELECT only, they can still write queries that take a long time and tie up resources. You should always *sanitise* input from the wide world. Check it matches what you think it should. Trust nobody.
+
+#### Exercise:
+
+Sanitise the input for your restriction digest program. Check the sequence title just has alphanumeric characters. Check the sequence is just ACTG. Check the restriction enzyme  name is one of the 'allowed' ones. And do this *before* you actually use any of the data.
+You might find it easiest to do something like:
+
+    cleandata={}
+    try:
+        cleandata['sequence']=check_sequence(form['sequence'])
+        ...
+    except Exception, e:
+        do_error(e)
+        
+    def check_sequence(sequence):
+        ....
+        
+    def do_error(error):
+        '''Handles an error by putting a message in the web page'''    
+        
 
 
+### Templates
 
+It can be tedious to put the same basic code into script after script. Instead we can use some form of templating 
+where we only need to write the code once.
+
+Consider the following example:
+
+    def start_html(title, css=None):
+        html="""Content-Type: text/html
+
+    <!DOCTYPE html>
+    <html><head><title>%s</title>"""%title
+
+        if css is not None:
+            html=html+"\n<link rel="stylesheet" type="text/css" href='%s'>\n"%css
+        html=html+"</head>\n<body>"
+        return html
+
+We can save the method start_html() in a file (e.g. cgi_methods.py) that could be included at the start of our CGI script.
+
+    import cgi_methods
+       
+    print start_html("My Page Title", "mystyle.css")          
+
+
+This keeps our code cleaner and more maintainable.
+
+
+This idea of templating and abstraction (where the repetitive housekeeping is managed for you) is taken further by web frameworks such as [Django](http://djangoproject.com) and [Web2Py](http://web2py.com).

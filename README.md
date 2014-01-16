@@ -37,6 +37,8 @@ The second part is the practical exercise where you will put these skills into p
 * [CGI forms](cgi/forms.md)
 * [Python and CGI](cgi/python_cgi.md)
 * Piecing it all together - Model, View, Controller
+
+Note that as you progress you will want to write short text files. There are many [text editors](editors.md) available on the server.
 	
 ## Part 2: Project
 

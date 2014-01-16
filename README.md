@@ -38,6 +38,12 @@ The second part is the practical exercise where you will put these skills into p
 * [Python and CGI](cgi/python_cgi.md)
 * Piecing it all together - Model, View, Controller
 	
-## Part 2: Exercise
+## Part 2: Project
 
 You will download a gene expression dataset from a public database (eg GEO). The choice of dataset is up to you but should be confirmed with Dr Martin.  You will construct a suitable database structure to hold it, and provide a web interface to allow a user to interrogate that data (filter/select specific data by criteria you determine) which will then be presented as a web page. Your code should be fully documented and in revision control. You should show good separation between data structures (model), Data representation to the user (view) and the program code that controls this (controller).  
+
+An [overview](geo/overview.md) of the steps you need to cover during the project.
+
+## Lab meetings
+
+Lab meetings will be from 12.30-2.30 on Mondays in Tower IT suite B

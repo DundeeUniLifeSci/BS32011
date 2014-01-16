@@ -37,12 +37,13 @@ We can retrieve results with the commands *fetchone()*, *fetchmany(n)*, and *fet
 	result
 	
 You should see that the result is an array of the fields. *fetchmany(n)* and *fetchall()* return an array of arrays.
+
 	n_req=10 # just want to retrieve the top ten hits
-	cursor.execute("select accession, length from sequence where length >1000 order by length desc")
-	result=cursor.fetchmany(n_req)
-	print "retrieved top %s hits"%len(result)
-	for r in result:
-		print "%s\t%s"%(r[0],r[1])
+    cursor.execute("select accession, length from sequence where length >1000 order by length desc")
+    result=cursor.fetchmany(n_req)
+    print "retrieved top %s hits"%len(result)
+    for r in result:
+        print "%s\t%s"%(r[0],r[1])
 		
 		
 ### Exercise:

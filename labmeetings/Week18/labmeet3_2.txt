@@ -1,0 +1,182 @@
+mysql> show tables;
++----------------------+
+| Tables_in_czconnolly |
++----------------------+
+| gene                 |
+| gene_expression      |
+| probe                |
+| sample_info          |
++----------------------+
+4 rows in set (0.00 sec)
+
+mysql> describe gene;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| geneid      | varchar(20) | NO   | PRI | NULL    |       |
+| gene_symbol | varchar(20) | NO   |     | NULL    |       |
+| gene_title  | varchar(20) | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> describe probe;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| probe_names | varchar(20) | NO   | PRI | NULL    |       |
+| geneID      | varchar(20) | NO   | MUL | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> describe gene_expression
+    -> ;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| experiment | varchar(10) | NO   | PRI | NULL    |       |
+| expression | int(11)     | NO   |     | NULL    |       |
+| probeID    | varchar(20) | NO   | PRI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> select expression from gene_expression order by expression desc limit 1;
++------------+
+| expression |
++------------+
+|      40780 |
++------------+
+1 row in set (0.04 sec)
+
+mysql> select geneID, experiment, expression from gene_expression e inner join probe p on p.probe_names=e.probeID  order by expression desc limit 1;
++--------+------------+------------+
+| geneID | experiment | expression |
++--------+------------+------------+
+|        | GSM542559  |      40780 |
++--------+------------+------------+
+1 row in set (0.08 sec)
+
+mysql> select probeID, geneID, experiment, expression from gene_expression e inner join probe p on p.probe_names=e.probeID  order by expression desc limit 1;
++---------------------+--------+------------+------------+
+| probeID             | geneID | experiment | expression |
++---------------------+--------+------------+------------+
+| AFFX-r2-P1-cre-3_at |        | GSM542559  |      40780 |
++---------------------+--------+------------+------------+
+1 row in set (0.06 sec)
+
+mysql> select probeID, geneID, experiment, expression from gene_expression e inner join probe p on p.probe_names=e.probeID  where geneID  != '' order by expression desc limit 1;
++-------------+--------+------------+------------+
+| probeID     | geneID | experiment | expression |
++-------------+--------+------------+------------+
+| 207243_s_at | 805    | GSM542559  |      29184 |
++-------------+--------+------------+------------+
+1 row in set (0.10 sec)
+
+mysql> select gene_symbol, gene_title, probeID, g.geneID, experiment, expression from gene_expression e inner join probe p on p.probe_names=e.probeID inner join gene g on g.geneid=p.geneID where p.geneID  != '' order by expression desc limit 1;
++-------------+----------------------+-------------+--------+------------+------------+
+| gene_symbol | gene_title           | probeID     | geneID | experiment | expression |
++-------------+----------------------+-------------+--------+------------+------------+
+| CALM2       | calmodulin 2 (phosph | 207243_s_at | 805    | GSM542559  |      29184 |
++-------------+----------------------+-------------+--------+------------+------------+
+1 row in set (0.06 sec)
+
+mysql> select * from experiment
+    -> ;
+ERROR 1146 (42S02): Table 'czconnolly.experiment' doesn't exist
+mysql> show tables;
++----------------------+
+| Tables_in_czconnolly |
++----------------------+
+| gene                 |
+| gene_expression      |
+| probe                |
+| sample_info          |
++----------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from sample_info;
++-----------+-------------------------------------------+-------------+-------------------------+----------+
+| sampleID  | source                                    | age         | disease_state           | gender   |
++-----------+-------------------------------------------+-------------+-------------------------+----------+
+| GSM542559 |  Temporal Cortex from Microcebus murinus  | old         | Alzheimers disease-like |  female  |
+| GSM542570 |  Temporal Cortex from Microcebus murinus  | old         | Alzheimers disease-like |  female  |
+| GSM542488 |  Temporal Cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+| GSM542555 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+| GSM542557 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+| GSM542571 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+| GSM542574 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+| GSM542575 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+| GSM542576 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+| GSM542560 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  male    |
+| GSM542561 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  male    |
+| GSM542573 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  male    |
+| GSM542556 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  female  |
+| GSM542563 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  female  |
+| GSM542572 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  female  |
+| GSM542577 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  female  |
+| GSM542558 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  male    |
+| GSM542562 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  male    |
++-----------+-------------------------------------------+-------------+-------------------------+----------+
+18 rows in set (0.00 sec)
+
+mysql> select gene_symbol, gene_title, probeID, g.geneID, experiment, expression from gene_expression e inner join probe p on p.probe_names=e.probeID inner join gene g on g.geneid=p.geneID where p.geneID  != '' order by expression desc limit 1;
++-------------+----------------------+-------------+--------+------------+------------+
+| gene_symbol | gene_title           | probeID     | geneID | experiment | expression |
++-------------+----------------------+-------------+--------+------------+------------+
+| CALM2       | calmodulin 2 (phosph | 207243_s_at | 805    | GSM542559  |      29184 |
++-------------+----------------------+-------------+--------+------------+------------+
+1 row in set (0.05 sec)
+
+mysql> select average(expression), gender from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid inner join sample_info s on s.sampleID=e.expression where gene_symbol='CALM2' group by gender;
+ERROR 1305 (42000): FUNCTION czconnolly.average does not exist
+mysql> select ave(expression), gender from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid inner join sample_info s on s.sampleID=e.expression where gene_symbol='CALM2' group by gender;
+ERROR 1305 (42000): FUNCTION czconnolly.ave does not exist
+mysql> select mean(expression), gender from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid inner join sample_info s on s.sampleID=e.expression where gene_symbol='CALM2' group by gender;
+ERROR 1305 (42000): FUNCTION czconnolly.mean does not exist
+mysql> select sum(expression)/count(expression) as average, gender from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid inner join sample_info s on s.sampleID=e.expression where gene_symbol='CALM2' group by gender;
+Empty set (0.13 sec)
+
+mysql> select sum(expression)/count(expression) as average from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid where gene_symbol='CALM2' ;
++------------+
+| average    |
++------------+
+| 14599.0000 |
++------------+
+1 row in set (1.91 sec)
+
+mysql> select sum(expression)/count(expression) as average from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid inner join sample_info s on s.sampleID=e.experiment where gene_symbol='CALM2' ;
++------------+
+| average    |
++------------+
+| 14599.0000 |
++------------+
+1 row in set (1.87 sec)
+
+mysql> select expression, gender  from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid inner join sample_info s on s.sampleID=e.experiment where gene_symbol='CALM2' ;
++------------+----------+
+| expression | gender   |
++------------+----------+
+|      29184 |  female  |
+|         14 |  female  |
++------------+----------+
+2 rows in set (2.01 sec)
+
+mysql> select expression, experiment  from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid where gene_symbol='CALM2' ;
++------------+------------+
+| expression | experiment |
++------------+------------+
+|      29184 | GSM542559  |
+|         14 | GSM542559  |
++------------+------------+
+2 rows in set (2.41 sec)
+
+mysql> select probeID,expression, experiment  from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid where gene_symbol='CALM2' ;
++-------------+------------+------------+
+| probeID     | expression | experiment |
++-------------+------------+------------+
+| 207243_s_at |      29184 | GSM542559  |
+| 236159_x_at |         14 | GSM542559  |
++-------------+------------+------------+
+2 rows in set (1.81 sec)
+
+mysql> Ctrl-C -- exit!
+Aborted

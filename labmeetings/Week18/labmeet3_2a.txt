@@ -1,0 +1,291 @@
+mysql> connect czconnolly
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Connection id:    319
+Current database: czconnolly
+
+mysql> select count(*) from gene_expression;
++----------+
+| count(*) |
++----------+
+|    52897 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select distinct experiment from gene_expression;
++------------+
+| experiment |
++------------+
+| GSM542559  |
++------------+
+1 row in set (0.01 sec)
+
+mysql> describe gene_expression;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| experiment | varchar(10) | NO   | PRI | NULL    |       |
+| expression | int(11)     | NO   |     | NULL    |       |
+| probeID    | varchar(20) | NO   | PRI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> show indexes;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show index;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show keys from gene_expression;
++-----------------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+
+| Table           | Non_unique | Key_name   | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment |
++-----------------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+
+| gene_expression |          0 | PRIMARY    |            1 | probeID     | A         |        NULL |     NULL | NULL   |      | BTREE      |         |
+| gene_expression |          0 | PRIMARY    |            2 | experiment  | A         |       52897 |     NULL | NULL   |      | BTREE      |         |
+| gene_expression |          1 | experiment |            1 | experiment  | A         |           1 |     NULL | NULL   |      | BTREE      |         |
++-----------------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table gene_expression drop primary key probeID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'probeID' at line 1
+mysql> alter table gene_expression drop primary key;
+Query OK, 52897 rows affected (0.19 sec)
+Records: 52897  Duplicates: 0  Warnings: 0
+
+mysql> alter table gene_expression drop primary key;
+ERROR 1091 (42000): Can't DROP 'PRIMARY'; check that column/key exists
+mysql> alter table gene_expression add primary key (probeID, experiment);
+Query OK, 52897 rows affected (1.28 sec)
+Records: 52897  Duplicates: 0  Warnings: 0
+
+mysql> select distinct experiment from gene_expression;
++------------+
+| experiment |
++------------+
+| GSM542488  |
+| GSM542555  |
+| GSM542556  |
+| GSM542557  |
+| GSM542558  |
+| GSM542559  |
+| GSM542560  |
+| GSM542561  |
+| GSM542562  |
+| GSM542563  |
+| GSM542570  |
+| GSM542571  |
+| GSM542572  |
+| GSM542573  |
+| GSM542574  |
+| GSM542575  |
+| GSM542576  |
+| GSM542577  |
++------------+
+18 rows in set (0.00 sec)
+
+mysql> select probeID,expression, experiment  from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid where gene_symbol='CALM2' ;
++-------------+------------+------------+
+| probeID     | expression | experiment |
++-------------+------------+------------+
+| 207243_s_at |      29184 | GSM542559  |
+| 236159_x_at |         14 | GSM542559  |
++-------------+------------+------------+
+2 rows in set (17.56 sec)
+
+mysql> select count(*) from gene_expression;
++----------+
+| count(*) |
++----------+
+|   986523 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select count(*) from gene_expression where probeID='207243_s_at';
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> delete from geen_expression;
+ERROR 1146 (42S02): Table 'czconnolly.geen_expression' doesn't exist
+mysql> delete from gene_expression;
+Query OK, 986523 rows affected (0.02 sec)
+
+mysql> select count(*) from gene_expression where probeID='207243_s_at';
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from gene_expression limit 3;
++------------+------------+---------+
+| experiment | expression | probeID |
++------------+------------+---------+
+| GSM542559  |       1007 | 298.469 |
+| GSM542570  |       1007 | 304.702 |
+| GSM542488  |       1007 | 413.076 |
++------------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> delete from gene_expression;
+Query OK, 933626 rows affected (0.02 sec)
+
+mysql> select sum(expression)/count(expression) as average from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid inner join sample_info s on s.sampleID=e.experiment where gene_symbol='CALM2' ;
++------------+
+| average    |
++------------+
+| 20171.2778 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(expression)/count(expression) as average, gender from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid inner join sample_info s on s.sampleID=e.expression where gene_symbol='CALM2' group by gender;
+Empty set (3.13 sec)
+
+mysql> select expression, gender from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid inner join sample_info s on s.sampleID=e.expression where gene_symbol='CALM2';
+Empty set (1.60 sec)
+
+mysql> select expression, s.* from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid inner join sample_info s on s.sampleID=e.expression where gene_symbol='CALM2';
+Empty set (2.53 sec)
+
+mysql> select expression from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid  where gene_symbol='CALM2';
++------------+
+| expression |
++------------+
+|      29184 |
+|      36746 |
+|      45332 |
+|      49446 |
+|      51114 |
+|      47126 |
+|      48872 |
+|      70635 |
+|      48743 |
+|      18184 |
+|      12563 |
+|      51397 |
+|      40280 |
+|      35778 |
+|      42847 |
+|      46982 |
+|      26906 |
+|      23105 |
+|         14 |
+|         11 |
+|         33 |
+|         63 |
+|         28 |
+|         22 |
+|        139 |
+|         33 |
+|         97 |
+|         19 |
+|         19 |
+|         69 |
+|         54 |
+|         35 |
+|         36 |
+|         73 |
+|         14 |
+|        167 |
++------------+
+36 rows in set (1.76 sec)
+
+mysql> select expression,experiment from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid  where gene_symbol='CALM2';
++------------+------------+
+| expression | experiment |
++------------+------------+
+|      29184 | GSM542559  |
+|      36746 | GSM542570  |
+|      45332 | GSM542488  |
+|      49446 | GSM542555  |
+|      51114 | GSM542557  |
+|      47126 | GSM542571  |
+|      48872 | GSM542574  |
+|      70635 | GSM542575  |
+|      48743 | GSM542576  |
+|      18184 | GSM542560  |
+|      12563 | GSM542561  |
+|      51397 | GSM542573  |
+|      40280 | GSM542556  |
+|      35778 | GSM542563  |
+|      42847 | GSM542572  |
+|      46982 | GSM542577  |
+|      26906 | GSM542558  |
+|      23105 | GSM542562  |
+|         14 | GSM542559  |
+|         11 | GSM542570  |
+|         33 | GSM542488  |
+|         63 | GSM542555  |
+|         28 | GSM542557  |
+|         22 | GSM542571  |
+|        139 | GSM542574  |
+|         33 | GSM542575  |
+|         97 | GSM542576  |
+|         19 | GSM542560  |
+|         19 | GSM542561  |
+|         69 | GSM542573  |
+|         54 | GSM542556  |
+|         35 | GSM542563  |
+|         36 | GSM542572  |
+|         73 | GSM542577  |
+|         14 | GSM542558  |
+|        167 | GSM542562  |
++------------+------------+
+36 rows in set (1.50 sec)
+
+mysql> select expression, s.* from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid inner join sample_info s on s.sampleID=e.experiment where gene_symbol='CALM2';
++------------+-----------+-------------------------------------------+-------------+-------------------------+----------+
+| expression | sampleID  | source                                    | age         | disease_state           | gender   |
++------------+-----------+-------------------------------------------+-------------+-------------------------+----------+
+|      29184 | GSM542559 |  Temporal Cortex from Microcebus murinus  | old         | Alzheimers disease-like |  female  |
+|         14 | GSM542559 |  Temporal Cortex from Microcebus murinus  | old         | Alzheimers disease-like |  female  |
+|      36746 | GSM542570 |  Temporal Cortex from Microcebus murinus  | old         | Alzheimers disease-like |  female  |
+|         11 | GSM542570 |  Temporal Cortex from Microcebus murinus  | old         | Alzheimers disease-like |  female  |
+|      45332 | GSM542488 |  Temporal Cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|         33 | GSM542488 |  Temporal Cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|      49446 | GSM542555 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|         63 | GSM542555 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|      51114 | GSM542557 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|         28 | GSM542557 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|      47126 | GSM542571 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|         22 | GSM542571 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|      48872 | GSM542574 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|        139 | GSM542574 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|      70635 | GSM542575 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|         33 | GSM542575 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|      48743 | GSM542576 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|         97 | GSM542576 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  female  |
+|      18184 | GSM542560 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  male    |
+|         19 | GSM542560 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  male    |
+|      12563 | GSM542561 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  male    |
+|         19 | GSM542561 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  male    |
+|      51397 | GSM542573 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  male    |
+|         69 | GSM542573 |  Temporal cortex from Microcebus murinus  | old         | Healthy                 |  male    |
+|      40280 | GSM542556 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  female  |
+|         54 | GSM542556 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  female  |
+|      35778 | GSM542563 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  female  |
+|         35 | GSM542563 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  female  |
+|      42847 | GSM542572 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  female  |
+|         36 | GSM542572 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  female  |
+|      46982 | GSM542577 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  female  |
+|         73 | GSM542577 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  female  |
+|      26906 | GSM542558 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  male    |
+|         14 | GSM542558 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  male    |
+|      23105 | GSM542562 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  male    |
+|        167 | GSM542562 |  Temporal cortex from Microcebus murinus  | young adult | Healthy                 |  male    |
++------------+-----------+-------------------------------------------+-------------+-------------------------+----------+
+36 rows in set (0.00 sec)
+
+mysql> select sum(expression)/count(expression) as average, gender from gene_expression e inner join probe p on e.probeID=p.probe_names inner join gene g on g.geneid=p.geneid inner join sample_info s on s.sampleID=e.experiment where gene_symbol='CALM2' group by gender;
++------------+----------+
+| average    | gender   |
++------------+----------+
+| 22835.5000 |  female  |
+| 13244.3000 |  male    |
++------------+----------+
+2 rows in set (0.01 sec)
+
+mysql> 

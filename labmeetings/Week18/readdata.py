@@ -1,6 +1,7 @@
 #!/usr/bin/python
+'''This is an incomplete outline form for the data parsing part of the project'''
 
-infile='GDS4467.txt'
+infile='GDS4467.txt' #Name of the input file
 
 fh = open(infile)
 
@@ -30,12 +31,14 @@ samples=header.split('\t')[2:int(colnames['Gene title'])]
 probefields=['ID_REF','Gene ID']
 
 def buildrow(row, fields):
+	'''Don't forget to put a doc string in every function that describes how it works and what input it takes'''
     newrow=[]
     for f in fields:
         newrow.append(row[int(colnames[f])])
     return "\t".join(newrow)+"\n"
 
 def build_expression(row, samples):
+	'''This docstring is missing'''
     exprrows=[]
     for s in samples:
         newrow=[s,]
@@ -43,6 +46,7 @@ def build_expression(row, samples):
 	newrow.append(row[int(colnames[s])])
 	exprrows.append("\t".join(newrow))
     return "\n".join(exprrows)+"\n"
+	
 rows=0    
 for line in fh.readlines():
     try:

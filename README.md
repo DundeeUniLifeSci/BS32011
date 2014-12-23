@@ -3,14 +3,14 @@
 ## Aims
 
 1 To develop the practical skills required to effectively implement bioinformatics workflows and data analysis. 
-2 To develop understanding of how to work collaboratively on data analysis 
-3 to understand provenance and sustainability in bioinformatics analysis
+1 To develop understanding of how to work collaboratively on data analysis 
+1 to understand provenance and sustainability in bioinformatics analysis
 	
 ## Structure
 
 The practical will consist of two parts. The first part is an intensive refresher on Python. We will also introduce using version control with git so you will need to create for yourselves a github account (http://github.com) before the first session.
 
-To get a refresher in Python before the practical starts, you can work through some of the on-line courses, eg http://pythonforbiologists.com (you will need to register to get the data files for the examples - it is free) or http://trypython.org
+To get a refresher in Python before the practical starts, you can work through some of the on-line courses, eg [http://pythonforbiologists.com] (you will need to register to get the data files for the examples - it is free) or [http://trypython.org]
 
 
 Over the course of the project we will 
@@ -42,10 +42,10 @@ Timelines are as follows with week by week deliverables noted. Deliverables shou
 * [Python classes](python/python_classes.md)
 * [Documentation](python/python_documentation.md) and [testing](python/python_testing.md)
 * [Data and code sharing with git](git/README.md)
-* Select and download data
-* Writing a parser for the data to extract it from the raw download.
+* [Select and download data from GEO](geo/overview.md)
+* [Writing a parser for the data to extract it from the raw download.](parser.md)
 
-_Deliverables:_ Dataset from GEO. Paring script that can extract the data into appropriate variables. 
+_Deliverables:_ Dataset from GEO. Parsing script that can extract the data into appropriate variables. 
 
 ### Week 2 - Storing our data in a database
 * [Relational databases (MySQL)](sql/sql_intro.md)
@@ -73,4 +73,7 @@ Integration of the web form with the SQL database so that queries made via the w
 _Deliverables:_ The final finished web site that allows the data downloaded from GEO to be interrogated via a web form.
 
 
+## Assessment of lab books
 
+In this practical your Git repository is your lab book. 
+The [guidelines](labbook.md) explain what is expected of a repository.

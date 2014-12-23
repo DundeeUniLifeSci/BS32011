@@ -8,9 +8,9 @@
 	
 ## Structure
 
-The practical will consist of two parts. The first part is an intensive refresher on Python. We will also introduce using version control with git so you will need to create for yourselves a github account (http://github.com) before the first session.
+The practical will consist of two parts. The first part is an intensive refresher on Python. We will also introduce using version control with git so you will need to create for yourselves a [github account](http://github.com) before the first session.
 
-To get a refresher in Python before the practical starts, you can work through some of the on-line courses, eg [http://pythonforbiologists.com] (you will need to register to get the data files for the examples - it is free) or [http://trypython.org]
+To get a refresher in Python before the practical starts, you can work through some of the on-line courses, eg [http://pythonforbiologists.com](http://pythonforbiologists.com) (you will need to register to get the data files for the examples - it is free) or [http://trypython.org](http://trypython.org).
 
 
 Over the course of the project we will 

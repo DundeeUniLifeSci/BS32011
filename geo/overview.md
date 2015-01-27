@@ -12,6 +12,10 @@ Go to the [Gene Expression Omnibus](http://www.ncbi.nih.nlm.gov/geo) and find a 
 
 Download the data as described in the [introduction to GEO data](introducing_geo.md)
 
+### Write a parser for the GEO datafile
+
+This should read your dataset and represent it electronically. [Some notes on parsers](parser.md)
+
 ### Plan your database
 
 Look at the data you have downloaded and decide how to represent it in the MySQL database. You may find it helpful to use diagrams like [entity-relationships](http://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model) or 
@@ -23,9 +27,9 @@ The class diagrams can also help you think about the methods you want to attach 
 
 This is the set of python classes that you will use to represent your data (gene, experiment etc), and the SQL that describes your database (the CREATE TABLE commands you use to build it).
 
-### Write a parser for the GEO datafile
+### Modify your parser
 
-This should read your dataset and put it into the database.
+This should read your dataset and now put it into the database.
 
 ### Plan the web interface
 

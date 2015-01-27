@@ -3,49 +3,77 @@
 ## Aims
 
 1 To develop the practical skills required to effectively implement bioinformatics workflows and data analysis. 
-2 To develop understanding of how to work collaboratively on data analysis 
-3 to understand provenance and sustainability in bioinformatics analysis
+1 To develop understanding of how to work collaboratively on data analysis 
+1 to understand provenance and sustainability in bioinformatics analysis
 	
 ## Structure
 
-The practical will consist of two parts. The first part is a 3 day overview where you will be introduced to the techniques and concepts that you will be using. This is a very rapid 'crash course' or 'bootcamp' and should be supplemented with your own reading and practice. The material was originally intended to take a class through 'en bloc' but scheduling prevents that so you will have to work through it in your own pace. It should take you about three working days to complete. I will be available all day Monday, Thursday and Friday during the first week to assist with any queries. You will not be expected to remember everything you need for part 2, but you will have been introduced to the concepts and know where to find out the details. 
+The practical will consist of two parts. The first part is an intensive refresher on Python. We will also introduce using version control with git so you will need to create for yourselves a [github account](http://github.com) before the first session.
 
-The second part is the practical exercise where you will put these skills into practice in your own time. 7 full working days have been allocated for the second part, and you can complete this at your own schedule.
-
-*This is a work in progress. The documentation on these pages will be updated periodically.*
-
-## Part 1: Bootcamp you should aim to complete this by the end of the first week.
-
-### Day 1
+To get a refresher in Python before the practical starts, you can work through some of the on-line courses, eg [http://pythonforbiologists.com](http://pythonforbiologists.com) (you will need to register to get the data files for the examples - it is free) or [http://trypython.org](http://trypython.org).
 
 
+Over the course of the project we will 
+* Retrieve some gene expression data from GEO, 
+* write a script that will process it into a suitable form. 
+* Place it into a relational database. 
+* Write a web script that can retrieve and display the data and set it up as a web server.
+	
+We will record our progress using version control and document our code well.
+
+## Working platform
+We will use the Scientific Computing Lab. This is a virtual environment where we can log in to a remote desktop. A copy of this environment will be available as a virtual machine so you can install it on your own machine(s). You'll discover how easy it is to keep these in sync using git/Github.
+
+## Project timeline
+### Lab meetings
+Initial introductory sessions will be Monday 19th January 12-3pm, Wednesday 21st 10-1, and Thursday 22nd 11-2 and 3-6pm. 
+You are expected to work outside these hours - the contact time is to help you get up to speed with the nature of the practical.
+
+Following the introductory week, lab meetings will be from 12.00-13.00 on Wednesdays in Tower IT suite B from week 16 (28th Jan)-Week 19
+
+Timelines are as follows with week by week deliverables noted. Deliverables should be tagged in your GitHub repository.
+
+### Week 1 - Python revision and getting started
 * [Setup and Introduction](setup.md)
 * [Using Unix](shell/README.md)  
 * [Python revision - variables and files](python/python_files.md)
 * [Python regular expressions](python/python_regexp.md)
 * [Python methods](python/python_functions.md)
 * [Python classes](python/python_classes.md)
-
-### Day 2 
 * [Documentation](python/python_documentation.md) and [testing](python/python_testing.md)
 * [Data and code sharing with git](git/README.md)
+* [Select and download data from GEO](geo/overview.md)
+* [Writing a parser for the data to extract it from the raw download.](parser.md)
+
+_Deliverables:_ Dataset from GEO. Parsing script that can extract the data into appropriate variables. 
+
+### Week 2 - Storing our data in a database
 * [Relational databases (MySQL)](sql/sql_intro.md)
 * [Python and relational databases (MySQLdb)](sql/sql_python.md)
+* By the end of this week you should have designed the database tables and imported the data. 
 
-### Day 3
+_Deliverables:_ SQL Schema. Script to extract data from the raw file and prepare it for insertion into the database as SQL statements.
+
+### Week 3 - Using Python to retrieve data from MySQl
+We will write Python functions that can query the relational database, returning the results in an appropriate data structure. This will be put together in a module.
+
+_Deliverables:_ A python class or classes that contains methods to retrieve entries in an appropriate data structure from the SQL database.
+
+### Week 4  We will learn how to build a web form and structure a web page. This will be set up on a web server.
+
 * [HTML](cgi/html.md) and [CSS](cgi/css.md)
 * [CGI forms](cgi/forms.md)
 * [Python and CGI](cgi/python_cgi.md)
-* Piecing it all together - Model, View, Controller
 
-Note that as you progress you will want to write short text files. There are many [text editors](editors.md) available on the server.
-	
-## Part 2: Project
+_Deliverables:_ A web page that demonstrates the use of appropriate formatting with CSS and a form that interacts with the server as demonstration CGI code
 
-You will download a gene expression dataset from a public database (eg GEO). The choice of dataset is up to you but should be confirmed with Dr Martin.  You will construct a suitable database structure to hold it, and provide a web interface to allow a user to interrogate that data (filter/select specific data by criteria you determine) which will then be presented as a web page. Your code should be fully documented and in revision control. You should show good separation between data structures (model), Data representation to the user (view) and the program code that controls this (controller).  
+### Week 5
+Integration of the web form with the SQL database so that queries made via the web form can be returned as a web viewable result.
 
-An [overview](geo/overview.md) of the steps you need to cover during the project.
+_Deliverables:_ The final finished web site that allows the data downloaded from GEO to be interrogated via a web form.
 
-## Lab meetings
 
-Lab meetings will be from 12.30-2.30 on Mondays in Tower IT suite B
+## Assessment of lab books
+
+In this practical your Git repository is your lab book. 
+The [guidelines](labbook.md) explain what is expected of a repository.

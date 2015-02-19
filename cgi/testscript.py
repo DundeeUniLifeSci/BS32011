@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
 import cgi
 import cgitb
 cgitb.enable()
@@ -12,7 +12,7 @@ print "<body><H1>Form values</H1>"
 print "<table><tr><th>Key</th><th>Value</th></tr>"
 
 for k in form.keys():
-        print "<tr><td>%s</td><td>%s</td></tr>"%(k, form[k])
+        print "<tr><td>%s</td><td>%s</td></tr>"%(k, form[k].value)
 
 print "<table>"
 
